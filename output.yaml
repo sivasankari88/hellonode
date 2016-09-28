@@ -1,0 +1,50 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  creationTimestamp: 2016-09-12T03:12:44Z
+  generation: 2
+  labels:
+    run: test-node-app
+  name: test-node-app
+  namespace: default
+  resourceVersion: "4517531"
+  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/test-node-app
+  uid: c62c8b0d-7896-11e6-aca6-fa163e202a6c
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: test-node-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: test-node-app
+    spec:
+      containers:
+      - image: docker.dev.integration.works/test-node-app:v1
+        imagePullPolicy: IfNotPresent
+        name: test-node-app
+        ports:
+        - containerPort: 9091
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+        - name: iw-docker
+      restartPolicy: Always
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  observedGeneration: 2
+  replicas: 1
+  updatedReplicas: 1

@@ -1,0 +1,28 @@
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: test-node-app
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: test-node-app
+    spec:
+      containers:
+      - image: docker.dev.integration.works/test-node-app:v1
+        imagePullPolicy: Always
+        name: test-node-app
+        ports:
+          - containerPort: 9091
+        resources:
+          limits:
+            cpu: 500m
+            memory: 2000Mi
+          requests:
+            cpu: 500m
+            memory: 2000Mi
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+        - name: iw-docker

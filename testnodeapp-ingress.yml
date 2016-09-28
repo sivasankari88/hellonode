@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: test-node-app
+  annotations:
+    kubernetes.io/tls-acme: "true"
+spec:
+  tls:
+  - hosts:
+    - testnodeapp.dev.integration.works
+    secretName: testnodeapp-tls
+  rules:
+  - host: testnodeapp.dev.integration.works
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: test-node-app
+          servicePort: 9091
